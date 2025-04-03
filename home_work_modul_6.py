@@ -30,22 +30,27 @@ class Record:
         self.phones.append(phone)
         
     def remove_phone(self, phone):
-        if phone in self.phones:
-            self.phones.remove(phone)
+        phone_to_delete = self.find_phone(phone)
+        if phone_to_delete:
+            self.phones.remove(phone_to_delete)
         else:
             raise ValueError("Номер не найден")    
             
-    def edit_phone(self, old_phone, new_phone): 
-        if old_phone not in self.phones:
-            raise ValueError("Этого номера нет в телефонной книге")
-        i = self.phones.index(old_phone)
-        self.phones[i] = new_phone
-    
-    def find_phone(self, phone):
-        if phone in self.phones:
-            return phone
+    def edit_phone(self, old_phone, new_phone):
+        phone_to_change = self.find_phone(old_phone)
+        if phone_to_change:
+            self.remove_phone(old_phone)
+            self.add_phone(new_phone) 
         else:
-            return None           
+            raise ValueError("Этого номера нет в телефонной книге")
+        
+    def find_phone(self, phone):
+        if type(phone) == str:
+                phone = Phone(phone)
+        for el in self.phones:
+            if el == phone:
+                return el
+        return None           
 
     def __str__(self):
         return f"Contact name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)}"
