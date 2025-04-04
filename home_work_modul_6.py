@@ -37,6 +37,8 @@ class Record:
             raise ValueError("Номер не найден")    
             
     def edit_phone(self, old_phone, new_phone):
+        if type(new_phone) == str:
+                new_phone = Phone(new_phone)
         phone_to_change = self.find_phone(old_phone)
         if phone_to_change:
             self.remove_phone(old_phone)
@@ -45,10 +47,8 @@ class Record:
             raise ValueError("Этого номера нет в телефонной книге")
         
     def find_phone(self, phone):
-        if type(phone) == str:
-                phone = Phone(phone)
         for el in self.phones:
-            if el == phone:
+            if el.value == phone:
                 return el
         return None           
 
