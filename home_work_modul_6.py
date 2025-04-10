@@ -41,8 +41,8 @@ class Record:
                 new_phone = Phone(new_phone)
         phone_to_change = self.find_phone(old_phone)
         if phone_to_change:
-            self.remove_phone(old_phone)
-            self.add_phone(new_phone) 
+            self.add_phone(new_phone)
+            self.remove_phone(old_phone) 
         else:
             raise ValueError("Этого номера нет в телефонной книге")
         
